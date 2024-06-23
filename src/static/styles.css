@@ -1,0 +1,587 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
+.button.success {
+    background-color: #28a745;
+    color: white;
+}
+
+.upload-and-browse {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 60px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.settings-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.settings-form > div {
+    flex: 1;
+    min-width: 250px;
+    margin-right: 20px;
+}
+
+.file-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.file-controls .sort-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-browser ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.file-browser li {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.file-thumbnail {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.file-label {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.file-browser-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid transparent;
+    padding: 5px;
+    transition: border-color 0.2s;
+}
+
+.file-browser-item.selected {
+    border-color: blue;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.images-container .final-image {
+    margin: 5px;
+    width: auto; /* Adjust the size as needed */
+    height: auto;
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.thumbnail-container .file-browser-item {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail-container .file-browser-item.selected {
+    border-color: blue;
+}
+
+.thumbnail-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination-controls button:hover {
+    background-color: #0056b3;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
+
+.job-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.job-preview {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.job-list {
+    margin-top: 20px;
+}
+
+.stage-running {
+    border-left: 5px solid green;
+}
+
+.stage-waiting {
+    border-left: 5px solid orange;
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.images-container .final-image {
+    margin: 5px;
+    width: 150px; /* Adjust the size as needed */
+    height: 150px;
+    object-fit: cover;
+}
+
+.wildcard-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.thumbnail-container .file-browser-item {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail-container .file-browser-item.selected {
+    border-color: blue;
+}
+
+.thumbnail-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form-group {
+    flex: 1 1 300px;
+    margin-bottom: 15px;
+}
+
+.form-group.full-width {
+    flex: 1 1 100%;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group input[type="checkbox"] {
+    width: auto;
+}
+
+.form-group input.read-only {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.slider-container input[type="range"] {
+    flex-grow: 1;
+    max-width: 60px; /* Adjusted value to make sliders smaller */
+}
+
+.slider-container input[type="number"] {
+    width: 60px; /* Adjusted value to keep number inputs small */
+}
+
+.inline-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.inline-group .form-group {
+    flex: 1;
+}
+
+.small-input {
+    width: 60px;
+}
+
+.medium-input {
+    width: 100px;
+}
+
+.tiny-input {
+    width: 30px;
+}
+/* Adjusting the settings input width */
+.form-container.three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.form-container.three-columns .form-group {
+    margin-bottom: 0;
+}
+
+.form-container.three-columns .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-container.three-columns .form-group input,
+.form-container.three-columns .form-group select {
+    width: 80%; /* Adjust the width to make inputs narrower */
+    box-sizing: border-box;
+}
+
+/* Ensure the upload area is within the white background box */
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 60px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+/* Centering the buttons */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container .button {
+    margin: 5px;
+}
+
+
+
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: #333;
+}
+
+nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 14px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #111;
+}
+
+.container {
+    padding: 20px;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.upload-area.dimmed {
+    background-color: #f0f0f0;
+}
+
+.file-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.file-browser {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.file-browser ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-browser li {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.file-browser-item.selected {
+    background-color: #d0eaff;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Server Status Up Down */
+
+
+.server-selection {
+    display: flex;
+    flex-direction: column;
+}
+.server-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.server-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.server-status.up {
+    background-color: green;
+}
+.server-status.down {
+    background-color: red;
+}
