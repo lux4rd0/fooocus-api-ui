@@ -31,7 +31,11 @@
 
 - Access the main dashboard to navigate to different functionalities through the navigation bar.
 
+![enter image description here](https://labs.lux4rd0.com/wp-content/uploads/2024/06/fooocus-api-ui_job_status.jpg)
+
 ### Adding an Upscale Job
+
+![enter image description here](https://labs.lux4rd0.com/wp-content/uploads/2024/06/fooocus-api-ui_add_upscale_job.jpg)
 
 1. **Navigate:** Go to the "Add Upscale Job" page.
 2. **Upload:** Drag and drop images into the upload area or click to select files.
@@ -39,6 +43,8 @@
 4. **Submit:** Click "Submit Selected Files" to initiate the upscaling process.
 
 ### Predefined Images for Face Swap
+
+![enter image description here](https://labs.lux4rd0.com/wp-content/uploads/2024/06/fooocus-api-ui_add_face_swap_job.jpg)
 
 1. **Navigate:** Go to the "Add Face Swap Job" page.
 2. **Select Predefined Image:** Choose from a list of predefined images for the face swap operation.
