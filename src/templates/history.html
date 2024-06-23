@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 250px;
+        }
+        .dropdown-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dropdown-button span {
+            margin-right: 10px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            z-index: 1000;
+        }
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+        .server-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .server-status.up {
+            background-color: green;
+        }
+        .server-status.down {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('status') }}">Job Status</a></li>
+            <li><a href="{{ url_for('add_upscale') }}">Add Upscale Job</a></li>
+            <li><a href="{{ url_for('add_faceswap') }}">Add Faceswap Job</a></li>
+            <li><a href="{{ url_for('history') }}">Job History</a></li>
+            <li><a href="{{ url_for('stop_all') }}">Stop All Jobs</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="header-container">
+            <h1>Job History</h1>
+            <div class="custom-dropdown">
+                <label for="dropdown-button">API Server:</label>
+                <div class="dropdown-button" id="dropdown-button">
+                    <span id="selected-server-name"></span>
+                    <span class="server-status" id="selected-server-status"></span>
+                    <span>&#9662;</span>
+                </div>
+                <div class="dropdown-content" id="dropdown-content"></div>
+            </div>
+        </div>
+        <div id="server-status-message" style="display: none; color: red;">
+            Selected server is down. Please select a different server.
+        </div>
+        <div id="last-refreshed" class="last-refreshed">Last Refreshed: </div>
+        <section id="job-history">
+            <h2>Job History</h2>
+            <div class="controls">
+                <label for="job-count">Jobs per page:</label>
+                <select id="job-count">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+                <label for="sort-order">Sort order:</label>
+                <select id="sort-order">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+                <label for="refresh-interval">Refresh interval:</label>
+                <select id="refresh-interval">
+                    <option value="never">Never</option>
+                    <option value="10">10 seconds</option>
+                    <option value="30">30 seconds</option>
+                    <option value="60">1 minute</option>
+                </select>
+            </div>
+            <div id="upscale-job-history"></div>
+            <div class="pagination">
+                <button id="prev-page">Previous</button>
+                <span id="currentPage">Page 1</span>
+                <button id="next-page">Next</button>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='common.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='history.js') }}"></script>
+</body>
+</html>

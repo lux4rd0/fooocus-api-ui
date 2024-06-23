@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fooocus Job Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('status') }}">Job Status</a></li>
+            <li><a href="{{ url_for('add_upscale') }}">Add Upscale Job</a></li>
+            <li><a href="{{ url_for('add_faceswap') }}">Add Faceswap Job</a></li>
+            <li><a href="{{ url_for('history') }}">Job History</a></li>
+            <li><a href="{{ url_for('stop_all') }}">Stop All Jobs</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Welcome to Fooocus Job Management</h1>
+    </div>
+    <script src="{{ url_for('static', filename='common.js') }}"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>

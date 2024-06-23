@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Upscale Job</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 250px;
+        }
+        .dropdown-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dropdown-button span {
+            margin-right: 10px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            z-index: 1000;
+        }
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+        .server-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .server-status.up {
+            background-color: green;
+        }
+        .server-status.down {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('status') }}">Job Status</a></li>
+            <li><a href="{{ url_for('add_upscale') }}">Add Upscale Job</a></li>
+            <li><a href="{{ url_for('add_faceswap') }}">Add Faceswap Job</a></li>
+            <li><a href="{{ url_for('history') }}">Job History</a></li>
+            <li><a href="{{ url_for('stop_all') }}">Stop All Jobs</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="header-container">
+            <h1>Add Upscale Job</h1>
+            <div class="custom-dropdown">
+                <label for="dropdown-button">API Server:</label>
+                <div class="dropdown-button" id="dropdown-button">
+                    <span id="selected-server-name"></span>
+                    <span class="server-status" id="selected-server-status"></span>
+                    <span>&#9662;</span>
+                </div>
+                <div class="dropdown-content" id="dropdown-content"></div>
+            </div>
+        </div>
+        <section id="add-upscale">
+            <h2>Settings</h2>
+            <form id="settings-form" class="settings-form">
+                <div>
+                    <label for="image-number">Number of Images:</label>
+                    <input type="number" id="image-number" name="image_number" value="1"><br>
+                </div>
+                <div>
+                    <label for="upscale-strength">Overwrite Upscale Strength (-1 to 1):</label>
+                    <input type="number" id="upscale-strength" name="upscale_strength" step="0.1" value="0.2" min="-1" max="1"><br>
+                </div>
+                <div>
+                    <label for="performance-selection">Performance Selection:</label>
+                    <select id="performance-selection" name="performance_selection">
+                        <option value="Speed">Speed</option>
+                        <option value="Quality" selected>Quality</option>
+                        <option value="Extreme Speed">Extreme Speed</option>
+                        <option value="Lightning">Lightning</option>
+                    </select><br>
+                </div>
+                <div>
+                    <label for="uov-method">Upscale or Vary Method:</label>
+                    <select id="uov-method" name="uov_method">
+                        <option value="Vary (Subtle)">Vary (Subtle)</option>
+                        <option value="Vary (Strong)">Vary (Strong)</option>
+                        <option value="Upscale (1.5x)">Upscale (1.5x)</option>
+                        <option value="Upscale (2x)" selected>Upscale (2x)</option>
+                        <option value="Upscale (Fast 2x)">Upscale (Fast 2x)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="file-name">File Name (optional):</label>
+                    <input type="text" id="file-name" name="file_name"><br>
+                </div>
+            </form>
+            <h2>Drag and Drop Files</h2>
+            <div class="upload-area" id="upload-area" ondrop="handleDrop(event)" ondragover="allowDrop(event)">
+                Drag and drop files here or
+                <input type="file" id="file-input" multiple onchange="handleFiles(this.files)">
+            </div>
+            <h2>Browse Files</h2>
+            <div class="upload-and-browse">
+                <div class="dropdown">
+                    <label for="image-source">Image Source:</label>
+                    <select id="image-source" onchange="changeImageSource()">
+                        <option value="local">Local Files</option>
+                        <option value="history">Job History</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="file-controls">
+                <div class="sort-options">
+                    <label for="file-pattern">Wildcard Pattern:</label>
+                    <input type="text" id="file-pattern" name="file_pattern">
+                    <button type="submit" class="button" form="wildcard-form">Filter</button>
+                </div>
+                <div class="sort-options">
+                    <label for="sort-files">Sort files by:</label>
+                    <select id="sort-files" onchange="handleSortFilesChange()">
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="date-asc">Date (Oldest First)</option>
+                        <option value="date-desc" selected>Date (Newest First)</option>
+                    </select>
+                    <label for="items-per-page">Items per page:</label>
+                    <select id="items-per-page" onchange="changeItemsPerPage()">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+            <div class="pagination-controls"></div>
+            <button class="button" onclick="selectAllFiles()">Select All</button>
+            <button class="button" onclick="unselectAllFiles()">Unselect All</button>
+            <button class="button" id="submit-selected-files" onclick="submitSelectedFiles()">Submit Selected Files</button>
+            <div id="add-job-status" class="job-list"></div>
+            <div class="file-browser" id="file-browser"></div>
+        </section>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='common.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='add-upscale.js') }}"></script>
+</body>
+</html>

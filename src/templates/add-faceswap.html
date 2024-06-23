@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Face Swap Job</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 250px;
+        }
+        .dropdown-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dropdown-button span {
+            margin-right: 10px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            z-index: 1000;
+        }
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+        .server-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .server-status.up {
+            background-color: green;
+        }
+        .server-status.down {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('status') }}">Job Status</a></li>
+            <li><a href="{{ url_for('add_upscale') }}">Add Upscale Job</a></li>
+            <li><a href="{{ url_for('add_faceswap') }}">Add Faceswap Job</a></li>
+            <li><a href="{{ url_for('history') }}">Job History</a></li>
+            <li><a href="{{ url_for('stop_all') }}">Stop All Jobs</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="header-container">
+            <h1>Add Face Swap Job</h1>
+            <div class="custom-dropdown">
+                <label for="dropdown-button">API Server:</label>
+                <div class="dropdown-button" id="dropdown-button">
+                    <span id="selected-server-name"></span>
+                    <span class="server-status" id="selected-server-status"></span>
+                    <span>&#9662;</span>
+                </div>
+                <div class="dropdown-content" id="dropdown-content"></div>
+            </div>
+        </div>
+        <section id="add-faceswap">
+            <h2>Select Image for Face Swap</h2>
+            <div id="image-selection" class="thumbnail-container"></div>
+            <div id="selected-image" class="form-group">
+                <p><strong>Selected Image:</strong> None</p>
+            </div>
+            <form id="faceswap-form">
+                <div class="form-group full-width">
+                    <label for="text-prompt">Text Prompt:</label>
+                    <textarea id="text-prompt" rows="4"></textarea>
+                </div>
+                <div class="inline-group">
+                    <div class="form-group">
+                        <label for="aspect-ratios">Aspect Ratios:</label>
+                        <select id="aspect-ratios">
+                            <option value="1728*576">1728×576 ∣ 3:1</option>
+                            <option value="1664*576">1664×576 ∣ 26:9</option>
+                            <option value="1600*640">1600×640 ∣ 5:2</option>
+                            <option value="1536*640">1536×640 ∣ 12:5</option>
+                            <option value="1472*704">1472×704 ∣ 23:11</option>
+                            <option value="1408*704">1408×704 ∣ 2:1</option>
+                            <option value="1344*704">1344×704 ∣ 21:11</option>
+                            <option value="1344*768">1344×768 ∣ 7:4</option>
+                            <option value="1280*768">1280×768 ∣ 5:3</option>
+                            <option value="1216*832">1216×832 ∣ 19:13</option>
+                            <option value="1152*832">1152×832 ∣ 18:13</option>
+                            <option value="1152*896">1152×896 ∣ 9:7</option>
+                            <option value="1088*896">1088×896 ∣ 17:14</option>
+                            <option value="1088*960">1088×960 ∣ 17:15</option>
+                            <option value="1024*960">1024×960 ∣ 16:15</option>
+                            <option value="1024*1024">1024×1024 ∣ 1:1</option>
+                            <option value="960*1024">960×1024 ∣ 15:16</option>
+                            <option value="960*1088">960×1088 ∣ 15:17</option>
+                            <option value="896*1088">896×1088 ∣ 14:17</option>
+                            <option value="896*1152" selected>896×1152 ∣ 7:9</option>
+                            <option value="832*1152">832×1152 ∣ 13:18</option>
+                            <option value="832*1216">832×1216 ∣ 13:19</option>
+                            <option value="768*1280">768×1280 ∣ 3:5</option>
+                            <option value="768*1344">768×1344 ∣ 4:7</option>
+                            <option value="704*1344">704×1344 ∣ 11:21</option>
+                            <option value="704*1408">704×1408 ∣ 1:2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="output-format">Output Format:</label>
+                        <select id="output-format">
+                            <option value="png">PNG</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="webp">WEBP</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="save-meta">Save Meta:</label>
+                        <select id="save-meta">
+                            <option value="no">No</option>
+                            <option value="fooocus" selected>Fooocus (JSON)</option>
+                            <option value="a1111">A1111 (Plain Text)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quality">Quality:</label>
+                        <select id="quality" class="small-input">
+                            <option value="Speed">Speed</option>
+                            <option value="Quality" selected>Quality</option>
+                            <option value="Extreme Speed">Extreme Speed</option>
+                            <option value="Lightning">Lightning</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline-group">
+                    <div class="form-group slider-container">
+                        <label for="stop-at">Stop At:</label>
+                        <input type="range" id="stop-at" name="stop-at" min="0" max="1" step="0.01" value="1.0" oninput="updateStopAtValue()">
+                        <input type="number" id="stop-at-value" class="tiny-input" value="1.0" step="0.01" min="0" max="1" onchange="updateStopAtRange()">
+                    </div>
+                    <div class="form-group slider-container">
+                        <label for="weight">Weight:</label>
+                        <input type="range" id="weight" name="weight" min="0" max="2" step="0.01" value="0.8" oninput="updateWeightValue()">
+                        <input type="number" id="weight-value" class="tiny-input" value=".8" step="0.01" min="0" max="2" onchange="updateWeightRange()">
+                    </div>
+                    <div class="form-group slider-container">
+                        <label for="image-number">Number of Images:</label>
+                        <input type="range" id="image-number" name="image-number" min="1" max="32" value="1" oninput="updateImageNumberValue()">
+                        <input type="number" id="image-number-value" class="tiny-input" value="1" min="1" max="32" onchange="updateImageNumberRange()">
+                    </div>
+                </div>
+                <div class="inline-group">
+                    <div class="form-group">
+                        <label for="random-seed">Random Seed:</label>
+                        <input type="checkbox" id="random-seed" name="random-seed" checked onchange="toggleSeedInput()">
+                    </div>
+                    <div class="form-group">
+                        <label for="seed">Seed:</label>
+                        <input type="number" id="seed" class="tiny-input read-only" name="seed" value="0" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="file-name">File Name (optional):</label>
+                        <input type="text" id="file-name" class="medium-input">
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="button">Add Face Swap Job</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+
+
+<script type="module" src="{{ url_for('static', filename='common.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='add-faceswap.js') }}"></script>
+</body>
+</html>
