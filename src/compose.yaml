@@ -1,0 +1,44 @@
+name: fooocus-util
+services:
+  fooocus-util:
+    command:
+      - gunicorn
+      - -w
+      - "4"
+      - -b
+      - 0.0.0.0:7069
+      - app:app
+      - --access-logfile
+      - '-'
+      - --error-logfile
+      - '-'
+      - --log-config
+      - /app/logging.conf
+    container_name: fooocus-util
+    environment:
+      TZ: America/Chicago
+      API_SERVERS: Fooocus Server - ai01,http://ai01.tylephony.com:8888
+    image: docker.tylephony.com:5000/lux4rd0/fooocus-util:1.1.17
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 7069
+        published: "7069"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: bind
+        source: /mnt/docker/fooocus-util/data/input
+        target: /app/input
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /mnt/docker/fooocus-util/data/faceswap_images
+        target: /app/faceswap_images
+        bind:
+          create_host_path: true
+
+networks:
+  default:
+    name: fooocus-util_default
